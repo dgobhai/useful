@@ -118,3 +118,10 @@ Now reset it back to the original...
 
 ad.ad_form.update facebook_id: "1600075253636138"
 
+
+## One liners
+id = '6923f74c-2a64-4b89-b0b5-0b7f55e80feb'
+ad = Ad.find id
+ad_form_ids = KoalaWrapper.new(facebook_id: ad.ad_account.facebook_page_id, endpoint: 'leadgen_forms', params: { } ).get.map{|f|f['id']}
+ad_form_ids.each {|id| p KoalaWrapper.new(facebook_id: id, endpoint: 'leads', params: { limit: 1000 } ).get.count }
+
